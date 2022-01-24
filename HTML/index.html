@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Prototipos</title>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button onclick="ChangeNumber()" class="btn" id="changeNumber">Siguiente</button>
+    </div>
+    <script>
+        function ChangeNumber(){
+            var empresa="A";
+            var local="1";
+            var categoria="Venta";
+            $.post( "./changeNumber.php", { Empresa: empresa, Local: local, Categoria: categoria}).done(function(data){
+                console.log(data);
+            });
+        }
+    </script>
+</body>
+</html>

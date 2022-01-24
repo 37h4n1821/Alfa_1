@@ -16,12 +16,12 @@
         <h2>Si no tiene telefono presione el codigo</h2>
         
         <script type="text/javascript">
-        var Empresa="Pruebas";
-        var local="1";
-        var Categoria="Atencion";
+        var Empresa="A";
+        var local="2";
+        var Categoria="A";
         
 
-        var datos="https://villaloscisnesnavidad.epizy.com/alpha/get_Numero.php?Value=";
+        var datos="https://villaloscisnesnavidad.epizy.com/alpha/2343UKK2232LASJJDSNN22333223232-"+Empresa+"-"+local+"-"+Categoria+"-";
         var numero;
         var i=0;
 
@@ -32,19 +32,19 @@
 
         function makeCode (n) {
             console.log(datos);
-            qrcode.makeCode(datos+n);
+            qrcode.makeCode(datos+n+".php");
         }
 
         function descargar(){
             alert("Imprimiendo Numero: "+globalThis.numero);
         }
         function crear_archivo(){
-            $.post( "./generar_archivo.php", { Empresa: "A", Local: "2", Categoria: "A", Value: globalThis.numero});
+            $.post( "./generar_archivo.php", { Empresa: Empresa, Local: local, Categoria: Categoria, Value: globalThis.numero});
 
         }
         
         function get_Numero(){
-            $.post( "./get_numero_anterior.php", { Empresa: "A", Local: "2", Categoria: "A" })
+            $.post( "./get_numero_anterior.php", { Empresa: Empresa, Local: local, Categoria: Categoria })
             .done(function( data ) {
                 if (globalThis.i==0){
                     globalThis.i=1;
