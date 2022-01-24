@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <meta charset="utf-8">
+        <title>Toma tu Turno!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="qrcode.js"></script>
+    </head>
+
+    <body>
+
+        <h1>Tomar Numero</h1>
+        <div id="qrcode" onclick="descargar()" ></div>
+        <h2>Si no tiene telefono presione el codigo</h2>
+        
+        <script type="text/javascript">
+        var Empresa="Pruebas";
+        var local="1";
+        var Categoria="Atencion";
+        
+
+        var datos="https://villaloscisnesnavidad.epizy.com/alpha/get_Numero.php?Value=";
+        var numero;
+        var i=0;
+
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width : 100,
+            height : 100
+        });
+
+        function makeCode (n) {
+            console.log(datos);
+            qrcode.makeCode(datos+n);
+        }
+
+        function descargar(){
+            alert("Imprimiendo Numero: "+globalThis.numero);
+        }
+        function crear_archivo(){
+            $.post( "./generar_archivo.php", { Empresa: "A", Local: "2", Categoria: "A", Value: globalThis.numero});
+
+        }
+        
+        function get_Numero(){
+            $.post( "./get_numero_anterior.php", { Empresa: "A", Local: "2", Categoria: "A" })
+            .done(function( data ) {
+                if (globalThis.i==0){
+                    globalThis.i=1;
+                }else{
+                    if (globalThis.numero!=numero){
+                        crear_archivo();
+                    }
+                }
+                const obj = JSON.parse(data);
+                var numero=obj.Value+1;
+                makeCode(numero);
+                globalThis.numero=numero;
+                get_Numero();
+            });
+        }
+        get_Numero();
+        
+
+        
+
+        </script>
+    </body>
+</html>
